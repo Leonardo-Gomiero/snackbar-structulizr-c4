@@ -1,13 +1,13 @@
 {
   "configuration" : { },
-  "description" : "Description",
+  "description" : "C4 model for the Snackbar application system",
   "documentation" : { },
   "id" : 1,
   "lastModifiedAgent" : "structurizr-ui",
-  "lastModifiedDate" : "2024-12-24T13:25:12Z",
+  "lastModifiedDate" : "2024-12-24T13:33:58Z",
   "model" : {
     "people" : [ {
-      "description" : "Places orders using the totem system.",
+      "description" : "A user who orders food from the snackbar",
       "id" : "1",
       "location" : "Unspecified",
       "name" : "Customer",
@@ -15,113 +15,406 @@
         "structurizr.dsl.identifier" : "customer"
       },
       "relationships" : [ {
-        "description" : "Places orders through frontend totem interface",
-        "destinationId" : "3",
-        "id" : "5",
+        "description" : "Uses",
+        "destinationId" : "4",
+        "id" : "12",
         "sourceId" : "1",
-        "tags" : "Relationship"
+        "tags" : "Relationship",
+        "technology" : "HTTP/REST"
+      }, {
+        "description" : "Uses",
+        "destinationId" : "3",
+        "id" : "13",
+        "linkedRelationshipId" : "12",
+        "sourceId" : "1",
+        "technology" : "HTTP/REST"
       } ],
       "tags" : "Element,Person"
     }, {
-      "description" : "Manages products, users, and order statuses.",
+      "description" : "Restaurant staff who prepare and manage orders",
       "id" : "2",
       "location" : "Unspecified",
-      "name" : "Admin",
+      "name" : "Staff",
       "properties" : {
-        "structurizr.dsl.identifier" : "admin"
+        "structurizr.dsl.identifier" : "staff"
       },
       "relationships" : [ {
-        "description" : "Manages orders, products, and users via admin frontend",
-        "destinationId" : "3",
-        "id" : "6",
+        "description" : "Uses",
+        "destinationId" : "4",
+        "id" : "14",
         "sourceId" : "2",
-        "tags" : "Relationship"
+        "tags" : "Relationship",
+        "technology" : "HTTP/REST"
+      }, {
+        "description" : "Uses",
+        "destinationId" : "3",
+        "id" : "15",
+        "linkedRelationshipId" : "14",
+        "sourceId" : "2",
+        "technology" : "HTTP/REST"
       } ],
       "tags" : "Element,Person"
     } ],
     "softwareSystems" : [ {
-      "description" : "Processes orders, manages products and users, and integrates with the payment system.",
+      "containers" : [ {
+        "components" : [ {
+          "description" : "Handles authentication and user management",
+          "documentation" : { },
+          "id" : "5",
+          "name" : "IAM Component",
+          "properties" : {
+            "structurizr.dsl.identifier" : "authcomponent"
+          },
+          "relationships" : [ {
+            "description" : "Reads/writes user data",
+            "destinationId" : "11",
+            "id" : "17",
+            "sourceId" : "5",
+            "tags" : "Relationship"
+          } ],
+          "tags" : "Element,Component"
+        }, {
+          "description" : "Manages customer orders",
+          "documentation" : { },
+          "id" : "6",
+          "name" : "Order Component",
+          "properties" : {
+            "structurizr.dsl.identifier" : "ordercomponent"
+          },
+          "relationships" : [ {
+            "description" : "Reads/writes order data",
+            "destinationId" : "11",
+            "id" : "18",
+            "sourceId" : "6",
+            "tags" : "Relationship"
+          }, {
+            "description" : "Validates user",
+            "destinationId" : "5",
+            "id" : "23",
+            "sourceId" : "6",
+            "tags" : "Relationship"
+          } ],
+          "tags" : "Element,Component"
+        }, {
+          "description" : "Manages product catalog",
+          "documentation" : { },
+          "id" : "7",
+          "name" : "Product Component",
+          "properties" : {
+            "structurizr.dsl.identifier" : "productcomponent"
+          },
+          "relationships" : [ {
+            "description" : "Reads/writes product data",
+            "destinationId" : "11",
+            "id" : "19",
+            "sourceId" : "7",
+            "tags" : "Relationship"
+          } ],
+          "tags" : "Element,Component"
+        }, {
+          "description" : "Handles order checkout process",
+          "documentation" : { },
+          "id" : "8",
+          "name" : "Checkout Component",
+          "properties" : {
+            "structurizr.dsl.identifier" : "checkoutcomponent"
+          },
+          "relationships" : [ {
+            "description" : "Reads/writes checkout data",
+            "destinationId" : "11",
+            "id" : "20",
+            "sourceId" : "8",
+            "tags" : "Relationship"
+          }, {
+            "description" : "Creates order",
+            "destinationId" : "6",
+            "id" : "24",
+            "sourceId" : "8",
+            "tags" : "Relationship"
+          } ],
+          "tags" : "Element,Component"
+        }, {
+          "description" : "Manages food preparation",
+          "documentation" : { },
+          "id" : "9",
+          "name" : "Cooking Component",
+          "properties" : {
+            "structurizr.dsl.identifier" : "cookingcomponent"
+          },
+          "relationships" : [ {
+            "description" : "Reads/writes cooking status",
+            "destinationId" : "11",
+            "id" : "21",
+            "sourceId" : "9",
+            "tags" : "Relationship"
+          }, {
+            "description" : "Updates order status",
+            "destinationId" : "6",
+            "id" : "25",
+            "sourceId" : "9",
+            "tags" : "Relationship"
+          } ],
+          "tags" : "Element,Component"
+        }, {
+          "description" : "Handles order pickup and delivery",
+          "documentation" : { },
+          "id" : "10",
+          "name" : "Pickup Component",
+          "properties" : {
+            "structurizr.dsl.identifier" : "pickupcomponent"
+          },
+          "relationships" : [ {
+            "description" : "Reads/writes pickup data",
+            "destinationId" : "11",
+            "id" : "22",
+            "sourceId" : "10",
+            "tags" : "Relationship"
+          }, {
+            "description" : "Monitors cooking status",
+            "destinationId" : "9",
+            "id" : "26",
+            "sourceId" : "10",
+            "tags" : "Relationship"
+          } ],
+          "tags" : "Element,Component"
+        } ],
+        "description" : "Spring Boot REST API",
+        "documentation" : { },
+        "id" : "4",
+        "name" : "Backend API",
+        "properties" : {
+          "structurizr.dsl.identifier" : "api"
+        },
+        "relationships" : [ {
+          "description" : "Reads from and writes to",
+          "destinationId" : "11",
+          "id" : "16",
+          "sourceId" : "4",
+          "tags" : "Relationship",
+          "technology" : "MongoDB Driver"
+        } ],
+        "tags" : "Element,Container",
+        "technology" : "Java/Spring Boot"
+      }, {
+        "description" : "Stores all system data",
+        "documentation" : { },
+        "id" : "11",
+        "name" : "MongoDB",
+        "properties" : {
+          "structurizr.dsl.identifier" : "database"
+        },
+        "tags" : "Element,Container",
+        "technology" : "MongoDB"
+      } ],
+      "description" : "Food ordering and management system",
       "documentation" : { },
       "id" : "3",
       "location" : "Unspecified",
-      "name" : "Ordering Backend System",
+      "name" : "Snackbar System",
       "properties" : {
-        "structurizr.dsl.identifier" : "backend"
-      },
-      "relationships" : [ {
-        "description" : "Sends payment requests and receives confirmations",
-        "destinationId" : "4",
-        "id" : "7",
-        "sourceId" : "3",
-        "tags" : "Relationship"
-      } ],
-      "tags" : "Element,Software System"
-    }, {
-      "description" : "External payment system to handle payment processing.",
-      "documentation" : { },
-      "id" : "4",
-      "location" : "Unspecified",
-      "name" : "Payment System",
-      "properties" : {
-        "structurizr.dsl.identifier" : "paymentsystem"
+        "structurizr.dsl.identifier" : "softwaresystem"
       },
       "tags" : "Element,Software System"
     } ]
   },
-  "name" : "Name",
+  "name" : "Snackbar System",
   "properties" : {
-    "structurizr.dsl" : "d29ya3NwYWNlIHsKCiAgICBtb2RlbCB7CiAgICAgICAgLy8gRGVmaW5lIFBlb3BsZSAoQWN0b3JzKQogICAgICAgIGN1c3RvbWVyID0gcGVyc29uICJDdXN0b21lciIgIlBsYWNlcyBvcmRlcnMgdXNpbmcgdGhlIHRvdGVtIHN5c3RlbS4iCiAgICAgICAgYWRtaW4gPSBwZXJzb24gIkFkbWluIiAiTWFuYWdlcyBwcm9kdWN0cywgdXNlcnMsIGFuZCBvcmRlciBzdGF0dXNlcy4iCgogICAgICAgIC8vIERlZmluZSBTeXN0ZW1zCiAgICAgICAgYmFja2VuZCA9IHNvZnR3YXJlU3lzdGVtICJPcmRlcmluZyBCYWNrZW5kIFN5c3RlbSIgIlByb2Nlc3NlcyBvcmRlcnMsIG1hbmFnZXMgcHJvZHVjdHMgYW5kIHVzZXJzLCBhbmQgaW50ZWdyYXRlcyB3aXRoIHRoZSBwYXltZW50IHN5c3RlbS4iCiAgICAgICAgcGF5bWVudFN5c3RlbSA9IHNvZnR3YXJlU3lzdGVtICJQYXltZW50IFN5c3RlbSIgIkV4dGVybmFsIHBheW1lbnQgc3lzdGVtIHRvIGhhbmRsZSBwYXltZW50IHByb2Nlc3NpbmcuIgoKICAgICAgICAvLyBEZWZpbmUgUmVsYXRpb25zaGlwcwogICAgICAgIGN1c3RvbWVyIC0+IGJhY2tlbmQgIlBsYWNlcyBvcmRlcnMgdGhyb3VnaCBmcm9udGVuZCB0b3RlbSBpbnRlcmZhY2UiCiAgICAgICAgYWRtaW4gLT4gYmFja2VuZCAiTWFuYWdlcyBvcmRlcnMsIHByb2R1Y3RzLCBhbmQgdXNlcnMgdmlhIGFkbWluIGZyb250ZW5kIgogICAgICAgIGJhY2tlbmQgLT4gcGF5bWVudFN5c3RlbSAiU2VuZHMgcGF5bWVudCByZXF1ZXN0cyBhbmQgcmVjZWl2ZXMgY29uZmlybWF0aW9ucyIKICAgIH0KCiAgICB2aWV3cyB7CiAgICAgICAgLy8gQ29udGV4dCBWaWV3CiAgICAgICAgc3lzdGVtQ29udGV4dCBiYWNrZW5kIHsKICAgICAgICAgICAgaW5jbHVkZSAqCiAgICAgICAgICAgIGF1dG9sYXlvdXQgbHIKICAgICAgICB9CgogICAgICAgIHRoZW1lIGRlZmF1bHQKICAgIH0KfQ=="
+    "structurizr.dsl" : "d29ya3NwYWNlIHsKICAgIG5hbWUgIlNuYWNrYmFyIFN5c3RlbSIKICAgIGRlc2NyaXB0aW9uICJDNCBtb2RlbCBmb3IgdGhlIFNuYWNrYmFyIGFwcGxpY2F0aW9uIHN5c3RlbSIKCiAgICBtb2RlbCB7CiAgICAgICAgY3VzdG9tZXIgPSBwZXJzb24gIkN1c3RvbWVyIiAiQSB1c2VyIHdobyBvcmRlcnMgZm9vZCBmcm9tIHRoZSBzbmFja2JhciIKICAgICAgICBzdGFmZiA9IHBlcnNvbiAiU3RhZmYiICJSZXN0YXVyYW50IHN0YWZmIHdobyBwcmVwYXJlIGFuZCBtYW5hZ2Ugb3JkZXJzIgoKICAgICAgICBzb2Z0d2FyZVN5c3RlbSA9IHNvZnR3YXJlU3lzdGVtICJTbmFja2JhciBTeXN0ZW0iICJGb29kIG9yZGVyaW5nIGFuZCBtYW5hZ2VtZW50IHN5c3RlbSIgewogICAgICAgICAgICAjIENvbnRhaW5lcnMKICAgICAgICAgICAgYXBpID0gY29udGFpbmVyICJCYWNrZW5kIEFQSSIgIlNwcmluZyBCb290IFJFU1QgQVBJIiAiSmF2YS9TcHJpbmcgQm9vdCIgewogICAgICAgICAgICAgICAgIyBDb21wb25lbnRzCiAgICAgICAgICAgICAgICBhdXRoQ29tcG9uZW50ID0gY29tcG9uZW50ICJJQU0gQ29tcG9uZW50IiAiSGFuZGxlcyBhdXRoZW50aWNhdGlvbiBhbmQgdXNlciBtYW5hZ2VtZW50IgogICAgICAgICAgICAgICAgb3JkZXJDb21wb25lbnQgPSBjb21wb25lbnQgIk9yZGVyIENvbXBvbmVudCIgIk1hbmFnZXMgY3VzdG9tZXIgb3JkZXJzIgogICAgICAgICAgICAgICAgcHJvZHVjdENvbXBvbmVudCA9IGNvbXBvbmVudCAiUHJvZHVjdCBDb21wb25lbnQiICJNYW5hZ2VzIHByb2R1Y3QgY2F0YWxvZyIKICAgICAgICAgICAgICAgIGNoZWNrb3V0Q29tcG9uZW50ID0gY29tcG9uZW50ICJDaGVja291dCBDb21wb25lbnQiICJIYW5kbGVzIG9yZGVyIGNoZWNrb3V0IHByb2Nlc3MiCiAgICAgICAgICAgICAgICBjb29raW5nQ29tcG9uZW50ID0gY29tcG9uZW50ICJDb29raW5nIENvbXBvbmVudCIgIk1hbmFnZXMgZm9vZCBwcmVwYXJhdGlvbiIKICAgICAgICAgICAgICAgIHBpY2t1cENvbXBvbmVudCA9IGNvbXBvbmVudCAiUGlja3VwIENvbXBvbmVudCIgIkhhbmRsZXMgb3JkZXIgcGlja3VwIGFuZCBkZWxpdmVyeSIKICAgICAgICAgICAgfQoKICAgICAgICAgICAgZGF0YWJhc2UgPSBjb250YWluZXIgIk1vbmdvREIiICJTdG9yZXMgYWxsIHN5c3RlbSBkYXRhIiAiTW9uZ29EQiIKICAgICAgICB9CgogICAgICAgICMgUmVsYXRpb25zaGlwcwogICAgICAgIGN1c3RvbWVyIC0+IGFwaSAiVXNlcyIgIkhUVFAvUkVTVCIKICAgICAgICBzdGFmZiAtPiBhcGkgIlVzZXMiICJIVFRQL1JFU1QiCiAgICAgICAgCiAgICAgICAgIyBDb250YWluZXIgcmVsYXRpb25zaGlwcwogICAgICAgIGFwaSAtPiBkYXRhYmFzZSAiUmVhZHMgZnJvbSBhbmQgd3JpdGVzIHRvIiAiTW9uZ29EQiBEcml2ZXIiCgogICAgICAgICMgQ29tcG9uZW50IHJlbGF0aW9uc2hpcHMKICAgICAgICBhdXRoQ29tcG9uZW50IC0+IGRhdGFiYXNlICJSZWFkcy93cml0ZXMgdXNlciBkYXRhIgogICAgICAgIG9yZGVyQ29tcG9uZW50IC0+IGRhdGFiYXNlICJSZWFkcy93cml0ZXMgb3JkZXIgZGF0YSIKICAgICAgICBwcm9kdWN0Q29tcG9uZW50IC0+IGRhdGFiYXNlICJSZWFkcy93cml0ZXMgcHJvZHVjdCBkYXRhIgogICAgICAgIGNoZWNrb3V0Q29tcG9uZW50IC0+IGRhdGFiYXNlICJSZWFkcy93cml0ZXMgY2hlY2tvdXQgZGF0YSIKICAgICAgICBjb29raW5nQ29tcG9uZW50IC0+IGRhdGFiYXNlICJSZWFkcy93cml0ZXMgY29va2luZyBzdGF0dXMiCiAgICAgICAgcGlja3VwQ29tcG9uZW50IC0+IGRhdGFiYXNlICJSZWFkcy93cml0ZXMgcGlja3VwIGRhdGEiCgogICAgICAgIG9yZGVyQ29tcG9uZW50IC0+IGF1dGhDb21wb25lbnQgIlZhbGlkYXRlcyB1c2VyIgogICAgICAgIGNoZWNrb3V0Q29tcG9uZW50IC0+IG9yZGVyQ29tcG9uZW50ICJDcmVhdGVzIG9yZGVyIgogICAgICAgIGNvb2tpbmdDb21wb25lbnQgLT4gb3JkZXJDb21wb25lbnQgIlVwZGF0ZXMgb3JkZXIgc3RhdHVzIgogICAgICAgIHBpY2t1cENvbXBvbmVudCAtPiBjb29raW5nQ29tcG9uZW50ICJNb25pdG9ycyBjb29raW5nIHN0YXR1cyIKICAgIH0KCiAgICB2aWV3cyB7CiAgICAgICAgc3lzdGVtQ29udGV4dCBzb2Z0d2FyZVN5c3RlbSAiU3lzdGVtQ29udGV4dCIgewogICAgICAgICAgICBpbmNsdWRlICoKICAgICAgICAgICAgYXV0b0xheW91dAogICAgICAgIH0KCiAgICAgICAgY29udGFpbmVyIHNvZnR3YXJlU3lzdGVtICJDb250YWluZXJzIiB7CiAgICAgICAgICAgIGluY2x1ZGUgKgogICAgICAgICAgICBhdXRvTGF5b3V0CiAgICAgICAgfQoKICAgICAgICBjb21wb25lbnQgYXBpICJDb21wb25lbnRzIiB7CiAgICAgICAgICAgIGluY2x1ZGUgKgogICAgICAgICAgICBhdXRvTGF5b3V0CiAgICAgICAgfQoKICAgICAgICB0aGVtZSBkZWZhdWx0CiAgICB9Cn0="
   },
   "views" : {
+    "componentViews" : [ {
+      "automaticLayout" : {
+        "applied" : true,
+        "edgeSeparation" : 0,
+        "implementation" : "Graphviz",
+        "nodeSeparation" : 300,
+        "rankDirection" : "TopBottom",
+        "rankSeparation" : 300,
+        "vertices" : false
+      },
+      "containerId" : "4",
+      "dimensions" : {
+        "height" : 3120,
+        "width" : 3454
+      },
+      "elements" : [ {
+        "id" : "5",
+        "x" : 219,
+        "y" : 1985
+      }, {
+        "id" : "6",
+        "x" : 523,
+        "y" : 1385
+      }, {
+        "id" : "7",
+        "x" : 969,
+        "y" : 185
+      }, {
+        "id" : "8",
+        "x" : 219,
+        "y" : 785
+      }, {
+        "id" : "9",
+        "x" : 969,
+        "y" : 785
+      }, {
+        "id" : "10",
+        "x" : 219,
+        "y" : 185
+      }, {
+        "id" : "11",
+        "x" : 1810,
+        "y" : 2585
+      } ],
+      "externalContainerBoundariesVisible" : false,
+      "key" : "Components",
+      "order" : 3,
+      "relationships" : [ {
+        "id" : "17",
+        "vertices" : [ {
+          "x" : 894,
+          "y" : 2389
+        } ]
+      }, {
+        "id" : "18",
+        "vertices" : [ {
+          "x" : 1502,
+          "y" : 2389
+        } ]
+      }, {
+        "id" : "19",
+        "vertices" : [ {
+          "x" : 3177,
+          "y" : 785
+        }, {
+          "x" : 3177,
+          "y" : 2389
+        } ]
+      }, {
+        "id" : "20",
+        "vertices" : [ {
+          "x" : 1123,
+          "y" : 1385
+        }, {
+          "x" : 1552,
+          "y" : 1985
+        } ]
+      }, {
+        "id" : "21",
+        "vertices" : [ {
+          "x" : 1960,
+          "y" : 1385
+        } ]
+      }, {
+        "id" : "22",
+        "vertices" : [ {
+          "x" : 1569,
+          "y" : 785
+        }, {
+          "x" : 2194,
+          "y" : 1385
+        }, {
+          "x" : 2231,
+          "y" : 1985
+        }, {
+          "x" : 2231,
+          "y" : 2389
+        } ]
+      }, {
+        "id" : "23"
+      }, {
+        "id" : "24"
+      }, {
+        "id" : "25"
+      }, {
+        "id" : "26"
+      } ]
+    } ],
     "configuration" : {
       "branding" : { },
-      "lastSavedView" : "SystemContext-001",
+      "lastSavedView" : "Components",
       "metadataSymbols" : "SquareBrackets",
       "styles" : { },
       "terminology" : { },
       "themes" : [ "https://static.structurizr.com/themes/default/theme.json" ]
     },
+    "containerViews" : [ {
+      "automaticLayout" : {
+        "applied" : true,
+        "edgeSeparation" : 0,
+        "implementation" : "Graphviz",
+        "nodeSeparation" : 300,
+        "rankDirection" : "TopBottom",
+        "rankSeparation" : 300,
+        "vertices" : false
+      },
+      "dimensions" : {
+        "height" : 1991,
+        "width" : 1550
+      },
+      "elements" : [ {
+        "id" : "1",
+        "x" : 199,
+        "y" : 165
+      }, {
+        "id" : "2",
+        "x" : 949,
+        "y" : 165
+      }, {
+        "id" : "4",
+        "x" : 574,
+        "y" : 765
+      }, {
+        "id" : "11",
+        "x" : 574,
+        "y" : 1365
+      } ],
+      "externalSoftwareSystemBoundariesVisible" : false,
+      "key" : "Containers",
+      "order" : 2,
+      "relationships" : [ {
+        "id" : "12"
+      }, {
+        "id" : "14"
+      }, {
+        "id" : "16"
+      } ],
+      "softwareSystemId" : "3"
+    } ],
     "systemContextViews" : [ {
       "automaticLayout" : {
         "applied" : true,
         "edgeSeparation" : 0,
         "implementation" : "Graphviz",
         "nodeSeparation" : 300,
-        "rankDirection" : "LeftRight",
+        "rankDirection" : "TopBottom",
         "rankSeparation" : 300,
         "vertices" : false
       },
       "dimensions" : {
-        "height" : 1400,
-        "width" : 2350
+        "height" : 1300,
+        "width" : 1550
       },
       "elements" : [ {
         "id" : "1",
-        "x" : 200,
+        "x" : 199,
         "y" : 165
       }, {
         "id" : "2",
-        "x" : 200,
-        "y" : 765
+        "x" : 949,
+        "y" : 165
       }, {
         "id" : "3",
-        "x" : 950,
-        "y" : 465
-      }, {
-        "id" : "4",
-        "x" : 1700,
-        "y" : 465
+        "x" : 574,
+        "y" : 765
       } ],
       "enterpriseBoundaryVisible" : true,
-      "generatedKey" : true,
-      "key" : "SystemContext-001",
+      "key" : "SystemContext",
       "order" : 1,
       "relationships" : [ {
-        "id" : "5"
+        "id" : "13"
       }, {
-        "id" : "6"
-      }, {
-        "id" : "7"
+        "id" : "15"
       } ],
       "softwareSystemId" : "3"
     } ]

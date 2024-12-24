@@ -1,25 +1,61 @@
 workspace {
+    name "Snackbar System"
+    description "C4 model for the Snackbar application system"
 
     model {
-        // Define People (Actors)
-        customer = person "Customer" "Places orders using the totem system."
-        admin = person "Admin" "Manages products, users, and order statuses."
+        customer = person "Customer" "A user who orders food from the snackbar"
+        staff = person "Staff" "Restaurant staff who prepare and manage orders"
 
-        // Define Systems
-        backend = softwareSystem "Ordering Backend System" "Processes orders, manages products and users, and integrates with the payment system."
-        paymentSystem = softwareSystem "Payment System" "External payment system to handle payment processing."
+        softwareSystem = softwareSystem "Snackbar System" "Food ordering and management system" {
+            # Containers
+            api = container "Backend API" "Spring Boot REST API" "Java/Spring Boot" {
+                # Components
+                authComponent = component "IAM Component" "Handles authentication and user management"
+                orderComponent = component "Order Component" "Manages customer orders"
+                productComponent = component "Product Component" "Manages product catalog"
+                checkoutComponent = component "Checkout Component" "Handles order checkout process"
+                cookingComponent = component "Cooking Component" "Manages food preparation"
+                pickupComponent = component "Pickup Component" "Handles order pickup and delivery"
+            }
 
-        // Define Relationships
-        customer -> backend "Places orders through frontend totem interface"
-        admin -> backend "Manages orders, products, and users via admin frontend"
-        backend -> paymentSystem "Sends payment requests and receives confirmations"
+            database = container "MongoDB" "Stores all system data" "MongoDB"
+        }
+
+        # Relationships
+        customer -> api "Uses" "HTTP/REST"
+        staff -> api "Uses" "HTTP/REST"
+        
+        # Container relationships
+        api -> database "Reads from and writes to" "MongoDB Driver"
+
+        # Component relationships
+        authComponent -> database "Reads/writes user data"
+        orderComponent -> database "Reads/writes order data"
+        productComponent -> database "Reads/writes product data"
+        checkoutComponent -> database "Reads/writes checkout data"
+        cookingComponent -> database "Reads/writes cooking status"
+        pickupComponent -> database "Reads/writes pickup data"
+
+        orderComponent -> authComponent "Validates user"
+        checkoutComponent -> orderComponent "Creates order"
+        cookingComponent -> orderComponent "Updates order status"
+        pickupComponent -> cookingComponent "Monitors cooking status"
     }
 
     views {
-        // Context View
-        systemContext backend {
+        systemContext softwareSystem "SystemContext" {
             include *
-            autolayout lr
+            autoLayout
+        }
+
+        container softwareSystem "Containers" {
+            include *
+            autoLayout
+        }
+
+        component api "Components" {
+            include *
+            autoLayout
         }
 
         theme default
