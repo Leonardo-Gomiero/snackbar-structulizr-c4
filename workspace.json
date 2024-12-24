@@ -1,0 +1,129 @@
+{
+  "configuration" : { },
+  "description" : "Description",
+  "documentation" : { },
+  "id" : 1,
+  "lastModifiedAgent" : "structurizr-ui",
+  "lastModifiedDate" : "2024-12-24T13:25:12Z",
+  "model" : {
+    "people" : [ {
+      "description" : "Places orders using the totem system.",
+      "id" : "1",
+      "location" : "Unspecified",
+      "name" : "Customer",
+      "properties" : {
+        "structurizr.dsl.identifier" : "customer"
+      },
+      "relationships" : [ {
+        "description" : "Places orders through frontend totem interface",
+        "destinationId" : "3",
+        "id" : "5",
+        "sourceId" : "1",
+        "tags" : "Relationship"
+      } ],
+      "tags" : "Element,Person"
+    }, {
+      "description" : "Manages products, users, and order statuses.",
+      "id" : "2",
+      "location" : "Unspecified",
+      "name" : "Admin",
+      "properties" : {
+        "structurizr.dsl.identifier" : "admin"
+      },
+      "relationships" : [ {
+        "description" : "Manages orders, products, and users via admin frontend",
+        "destinationId" : "3",
+        "id" : "6",
+        "sourceId" : "2",
+        "tags" : "Relationship"
+      } ],
+      "tags" : "Element,Person"
+    } ],
+    "softwareSystems" : [ {
+      "description" : "Processes orders, manages products and users, and integrates with the payment system.",
+      "documentation" : { },
+      "id" : "3",
+      "location" : "Unspecified",
+      "name" : "Ordering Backend System",
+      "properties" : {
+        "structurizr.dsl.identifier" : "backend"
+      },
+      "relationships" : [ {
+        "description" : "Sends payment requests and receives confirmations",
+        "destinationId" : "4",
+        "id" : "7",
+        "sourceId" : "3",
+        "tags" : "Relationship"
+      } ],
+      "tags" : "Element,Software System"
+    }, {
+      "description" : "External payment system to handle payment processing.",
+      "documentation" : { },
+      "id" : "4",
+      "location" : "Unspecified",
+      "name" : "Payment System",
+      "properties" : {
+        "structurizr.dsl.identifier" : "paymentsystem"
+      },
+      "tags" : "Element,Software System"
+    } ]
+  },
+  "name" : "Name",
+  "properties" : {
+    "structurizr.dsl" : "d29ya3NwYWNlIHsKCiAgICBtb2RlbCB7CiAgICAgICAgLy8gRGVmaW5lIFBlb3BsZSAoQWN0b3JzKQogICAgICAgIGN1c3RvbWVyID0gcGVyc29uICJDdXN0b21lciIgIlBsYWNlcyBvcmRlcnMgdXNpbmcgdGhlIHRvdGVtIHN5c3RlbS4iCiAgICAgICAgYWRtaW4gPSBwZXJzb24gIkFkbWluIiAiTWFuYWdlcyBwcm9kdWN0cywgdXNlcnMsIGFuZCBvcmRlciBzdGF0dXNlcy4iCgogICAgICAgIC8vIERlZmluZSBTeXN0ZW1zCiAgICAgICAgYmFja2VuZCA9IHNvZnR3YXJlU3lzdGVtICJPcmRlcmluZyBCYWNrZW5kIFN5c3RlbSIgIlByb2Nlc3NlcyBvcmRlcnMsIG1hbmFnZXMgcHJvZHVjdHMgYW5kIHVzZXJzLCBhbmQgaW50ZWdyYXRlcyB3aXRoIHRoZSBwYXltZW50IHN5c3RlbS4iCiAgICAgICAgcGF5bWVudFN5c3RlbSA9IHNvZnR3YXJlU3lzdGVtICJQYXltZW50IFN5c3RlbSIgIkV4dGVybmFsIHBheW1lbnQgc3lzdGVtIHRvIGhhbmRsZSBwYXltZW50IHByb2Nlc3NpbmcuIgoKICAgICAgICAvLyBEZWZpbmUgUmVsYXRpb25zaGlwcwogICAgICAgIGN1c3RvbWVyIC0+IGJhY2tlbmQgIlBsYWNlcyBvcmRlcnMgdGhyb3VnaCBmcm9udGVuZCB0b3RlbSBpbnRlcmZhY2UiCiAgICAgICAgYWRtaW4gLT4gYmFja2VuZCAiTWFuYWdlcyBvcmRlcnMsIHByb2R1Y3RzLCBhbmQgdXNlcnMgdmlhIGFkbWluIGZyb250ZW5kIgogICAgICAgIGJhY2tlbmQgLT4gcGF5bWVudFN5c3RlbSAiU2VuZHMgcGF5bWVudCByZXF1ZXN0cyBhbmQgcmVjZWl2ZXMgY29uZmlybWF0aW9ucyIKICAgIH0KCiAgICB2aWV3cyB7CiAgICAgICAgLy8gQ29udGV4dCBWaWV3CiAgICAgICAgc3lzdGVtQ29udGV4dCBiYWNrZW5kIHsKICAgICAgICAgICAgaW5jbHVkZSAqCiAgICAgICAgICAgIGF1dG9sYXlvdXQgbHIKICAgICAgICB9CgogICAgICAgIHRoZW1lIGRlZmF1bHQKICAgIH0KfQ=="
+  },
+  "views" : {
+    "configuration" : {
+      "branding" : { },
+      "lastSavedView" : "SystemContext-001",
+      "metadataSymbols" : "SquareBrackets",
+      "styles" : { },
+      "terminology" : { },
+      "themes" : [ "https://static.structurizr.com/themes/default/theme.json" ]
+    },
+    "systemContextViews" : [ {
+      "automaticLayout" : {
+        "applied" : true,
+        "edgeSeparation" : 0,
+        "implementation" : "Graphviz",
+        "nodeSeparation" : 300,
+        "rankDirection" : "LeftRight",
+        "rankSeparation" : 300,
+        "vertices" : false
+      },
+      "dimensions" : {
+        "height" : 1400,
+        "width" : 2350
+      },
+      "elements" : [ {
+        "id" : "1",
+        "x" : 200,
+        "y" : 165
+      }, {
+        "id" : "2",
+        "x" : 200,
+        "y" : 765
+      }, {
+        "id" : "3",
+        "x" : 950,
+        "y" : 465
+      }, {
+        "id" : "4",
+        "x" : 1700,
+        "y" : 465
+      } ],
+      "enterpriseBoundaryVisible" : true,
+      "generatedKey" : true,
+      "key" : "SystemContext-001",
+      "order" : 1,
+      "relationships" : [ {
+        "id" : "5"
+      }, {
+        "id" : "6"
+      }, {
+        "id" : "7"
+      } ],
+      "softwareSystemId" : "3"
+    } ]
+  }
+}
